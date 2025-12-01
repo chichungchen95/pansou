@@ -171,7 +171,10 @@ func startServer() {
 	router := api.SetupRouter(searchService)
 
 	// 获取端口配置
-	port := config.AppConfig.Port
+	port := os.Getenv("PORT")
+	if port == "" {
+    	port = config.AppConfig.Port // fallback locally
+	}
 
 	// 输出服务信息
 	printServiceInfo(port, pluginManager)
